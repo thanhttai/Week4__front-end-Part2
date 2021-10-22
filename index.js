@@ -8,7 +8,7 @@ const fetchAsync = async () => {
     let data = await response.json();
 
     const companies = data
-    console.log(companies);
+
 
     const hmtlTitleArea = document.querySelector('.container__main')
     const htmlOutput = companies.result.map(singleCompany => {
@@ -20,9 +20,9 @@ const fetchAsync = async () => {
 fetchAsync()
 
 function renderCompany(singleCompany) {
-    console.log(singleCompany.numOfRatings);
+
     return `
-    <div class="col l-3">
+    <div class="col l-3 card__margin">
     <div class="card" style="width: 18rem;">
         <h3 class="heading-card">${singleCompany.name}</h3>
         <div class="container__img">
@@ -32,7 +32,7 @@ function renderCompany(singleCompany) {
         <h4 class="heading-card-sub">Job recruitment</h4>
         <span class="quantity">${singleCompany.numOfRatings}</span> 
         <div class="card-body">
-            <p class="card-text">${singleCompany.description}</p>
+            <p class="card-text text__limit">${singleCompany.description}</p>
         </div>
     </div>
 </div>
@@ -40,3 +40,46 @@ function renderCompany(singleCompany) {
 
 }
 renderCompany()
+
+// search company
+
+const searchBox = document.getElementById("search-box");
+const searchButton = document.getElementById("search-btn");
+
+const handleSearch = (e) => {
+    //Using sever rendering option
+    e.preventDefault();
+    //capture search value
+    const titleQuery = searchBox.value;
+    console.log(titleQuery);
+    fetch(url)
+        .then((response) => response.json())
+        .then(data => {
+            console.log(data);
+            const hmtlTitleArea = document.querySelector('.container__main')
+
+            const newData = data.result.filter((e) => e.name === titleQuery);
+            const listOfCardHTML = newData.map((e) => {
+                return `
+                <div class="col l-3 card__margin">
+                <div class="card" style="width: 18rem;">
+                    <h3 class="heading-card">${e.name}</h3>
+                    <div class="container__img">
+                        <img src="./assets/img/Natsume-Yuujinchou-Anime-Character-Designs-Takashi-Natsume (1).jpg"
+                            alt="" class="img-company">
+                    </div>
+                    <h4 class="heading-card-sub">Job recruitment</h4>
+                    <span class="quantity">${e.numOfRatings}</span> 
+                    <div class="card-body">
+                        <p class="card-text text__limit">${e.description}</p>
+                    </div>
+                </div>
+            </div>`
+            });
+            hmtlTitleArea.innerHTML = listOfCardHTML.join("");
+        })
+
+
+
+};
+searchButton.addEventListener("click", handleSearch);
