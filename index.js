@@ -12,6 +12,7 @@ const fetchAsync = async () => {
 
     const hmtlTitleArea = document.querySelector('.container__main')
     const htmlOutput = companies.result.map(singleCompany => {
+
         return renderCompany(singleCompany)
     })
 
@@ -59,19 +60,19 @@ const handleSearch = (e) => {
             const hmtlTitleArea = document.querySelector('.container__main')
 
             const newData = data.result.filter((e) => e.name === titleQuery);
-            const listOfCardHTML = newData.map((e) => {
+            const listOfCardHTML = newData.map((value) => {
                 return `
-                <div class="col l-3 card__margin">
+                <div class="col l-3 c-12 m-6 card__margin">
                 <div class="card" style="width: 18rem;">
-                    <h3 class="heading-card">${e.name}</h3>
+                    <h3 class="heading-card">${value.name}</h3>
                     <div class="container__img">
                         <img src="./assets/img/Natsume-Yuujinchou-Anime-Character-Designs-Takashi-Natsume (1).jpg"
                             alt="" class="img-company">
                     </div>
                     <h4 class="heading-card-sub">Job recruitment</h4>
-                    <span class="quantity">${e.numOfRatings}</span> 
+                    <span class="quantity">${value.numOfRatings}</span> 
                     <div class="card-body">
-                        <p class="card-text text__limit">${e.description}</p>
+                        <p class="card-text text__limit">${value.description}</p>
                     </div>
                 </div>
             </div>`

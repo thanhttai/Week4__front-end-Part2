@@ -50,3 +50,12 @@
 body{
     padding-bottom:30px
 }
+@media (max-width: 768px){
+    .card__margin {
+        margin-top: 20px;
+        display:flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+}
